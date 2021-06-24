@@ -10,3 +10,5 @@ excelの読み書き
 ## Multiprocessing
 並列処理
 
+## URL
+URLのstatus確認
