@@ -1,0 +1,47 @@
+{% extends 'fuka/base.html' %}
+{% load static %}
+
+{% block title%}Detail{% endblock%}
+
+{% block content %}
+<h1>Detail</h1>
+<div class="py-5">
+    <h4>{{ object.name}}</h4>
+    <p>{{ object.position }}</p>
+    <p>{{ object.re_area }}</p>
+    <p>{{ object.re_rate }}</p>
+</div>
+<div class="chart-container mx-auto" style="position: relative; width: max-content;">
+    <canvas id="DoughnutChart{{object.id}}" data-url="{% url 'api-chart' object.id %}"></canvas>
+</div>
+<script>
+    $(function () {
+        var $DoughnutChart = $("#DoughnutChart{{object.id}}");
+
+        $.ajax({
+            url: $DoughnutChart.data("url"),
+            success: function (data) {
+                var ctx = $DoughnutChart[0].getContext("2d");
+
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        datasets: [{
+                            backgroundColor: ['#007bff', '#6c757d', '#28a745'],
+                            data: data.data
+                        }],
+                        labels: data.labels    
+                    },
+                    options: {
+                        responsive: true,
+                        legend: {
+                            display: false,
+                        }
+                    }
+                });
+            }
+        });
+    });
+</script>
+
+{% endblock%}
