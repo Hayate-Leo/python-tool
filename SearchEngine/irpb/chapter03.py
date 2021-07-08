@@ -1,5 +1,5 @@
-from chapter01 import get_string_from_file
-from chapter02 import create_wordcloud, get_japanese_fonts
+from irpb.chapter01 import get_string_from_file
+from irpb.chapter02 import create_wordcloud, get_japanese_fonts
 
 # Listing 3.1 #
 
@@ -76,8 +76,9 @@ from gensim import models
 # Listing 3.12 #
 
 def load_aozora_corpus():
-    return load_dictionary_and_corpus('data/aozora/aozora.dic',
-                                      'data/aozora/aozora.mm')
+    path = r'C:/Users/kamis/Documents/Python Scripts/irpb-files/data/'
+    return load_dictionary_and_corpus(path+'aozora/aozora.dic',
+                                      path+'aozora/aozora.mm')
 
 def get_bows(texts, dic, allow_update=False):
     bows = []
