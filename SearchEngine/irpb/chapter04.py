@@ -1,6 +1,6 @@
-from chapter01 import get_string_from_file
-from chapter02 import get_words_from_file
-from chapter03 import get_words, bows_to_cfs, load_aozora_corpus, get_bows,    add_to_corpus, get_weights, translate_bows, get_tfidfmodel_and_weights
+from irpb.chapter01 import get_string_from_file
+from irpb.chapter02 import get_words_from_file
+from irpb.chapter03 import get_words, bows_to_cfs, load_aozora_corpus, get_bows,    add_to_corpus, get_weights, translate_bows, get_tfidfmodel_and_weights
 
 
 # Listing 4.1 #
