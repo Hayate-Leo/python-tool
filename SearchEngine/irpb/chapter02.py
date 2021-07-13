@@ -74,7 +74,7 @@ def get_japanese_fonts(candidates=japanese_font_candidates):
 
 def configure_fonts_for_japanese(fonts=japanese_font_candidates):
     if hasattr(fm.fontManager, 'addfont'):
-        fm.fontManager.addfont('font/ipaexg.ttf')
+        fm.fontManager.addfont('C:/Users/kamis/Documents/Python Scripts/irpb-files/font/ipaexg.ttf')
     else:
         ipa_font_files = fm.findSystemFonts(fontpaths='font')
         ipa_font_list = fm.createFontList(ipa_font_files)
