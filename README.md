@@ -1,6 +1,9 @@
 # python-tool
 python関連のツール
 
+## Django
+はやてれおのdjango bookに関するdjango directory
+
 ## eel
 デスクトップアプリ
 
