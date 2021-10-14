@@ -4,6 +4,7 @@ from .forms import ContactForm
 from django.urls import reverse_lazy
 from .models import Contact, Blog
 from django.contrib.messages.views import SuccessMessageMixin
+from django.db.models import Q
 
 
 class HomeTemplateView(TemplateView):
@@ -22,3 +23,12 @@ class BlogListView(ListView):
     template_name = 'blog/blog.html'
     context_object_name = 'results'
     paginate_by = 3
+
+    def get_queryset(self, **kwargs):
+        queryset = super().get_queryset(**kwargs)
+        query = self.request.GET
+
+        if q := query.get('q'):
+            queryset = queryset.filter(Q(content__icontains=q)|Q(title__icontains=q))
+
+        return queryset.order_by('-created_at')
