@@ -21,3 +21,4 @@ class BlogListView(ListView):
     model = Blog
     template_name = 'blog/blog.html'
     context_object_name = 'results'
+    paginate_by = 3
