@@ -18,9 +18,18 @@
         <h1 class="display-3 mb-5">はやてれおのdjangobook</h1>
         <p class="text-muted fs-3">Bootstrapで見た目をきれいにしていきます．</p>
     </div>
-    <h3>django</h3>
-    <p>djangoは少ないコードで迅速な開発が可能です</p>
-    <h3>python</h3>
-    <p>pythonはオブジェクト指向型言語に１つで，インデントでforやifのブロックを指定するためコードがきれいになり可読性が良いです．</p>
+    <div class="mb-5">
+        <h3>django</h3>
+        <p>djangoは少ないコードで迅速な開発が可能です</p>
+        <h3>python</h3>
+        <p>pythonはオブジェクト指向型言語に１つで，インデントでforやifのブロックを指定するためコードがきれいになり可読性が良いです．</p>
+    </div>    
+    <div>
+        <h3 class="mb-3">ブログの記事一覧</h3>
+        {% for blog in blogs %}
+            <h4>{{blog.title}}</h4>
+            <p>{{blog.content}}</p>
+        {% endfor %}
+    </div>
 {% endblock %}
 

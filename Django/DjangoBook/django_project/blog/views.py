@@ -10,6 +10,11 @@ from django.db.models import Q
 class HomeTemplateView(TemplateView):
     template_name = 'blog/home.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['blogs'] = Blog.objects.all()
+        return context
+
 
 class ContactFormView(SuccessMessageMixin, CreateView):
     template_name = 'blog/contact.html'
