@@ -1,0 +1,22 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}はやてれおのblog{% endblock %}
+
+{% block bloghead %}
+    active
+{% endblock %}
+
+{% block main %}
+    <div class="text-center mb-5">
+        <h1 class="display-3 mb-5">はやてれおのBlog</h1>
+        <p class="text-muted fs-3">Blogの記事一覧</p>
+    </div>
+    <div>
+        {% for result in results %}
+        <h4>{{ result.title }}</h4>
+        <p>{{ result.created_at }}</p>
+        <p class="lead">{{ result.content }}</p>
+        {% endfor %}
+    </div>
+{% endblock %}
+

@@ -1,8 +1,8 @@
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 from django.views.generic.edit import CreateView
 from .forms import ContactForm
 from django.urls import reverse_lazy
-from .models import Contact
+from .models import Contact, Blog
 from django.contrib.messages.views import SuccessMessageMixin
 
 
@@ -16,3 +16,8 @@ class ContactFormView(SuccessMessageMixin, CreateView):
     success_url = reverse_lazy('home')
     model = Contact
     success_message = 'お問い合わせありがとうございました。'
+
+class BlogListView(ListView):
+    model = Blog
+    template_name = 'blog/blog.html'
+    context_object_name = 'results'
