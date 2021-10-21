@@ -10,3 +10,8 @@ class ContactForm(forms.ModelForm):
            'email': 'メールアドレス',
            'content':'内容',
         }
+        error_messages = {
+            'title': {
+                'max_length': '100文字以内で入力してください'
+            }
+        }
