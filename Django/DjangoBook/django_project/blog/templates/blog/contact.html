@@ -28,6 +28,9 @@
             name="{{item.name}}" id="{{item.id_for_label}}">
       {% endif %}
     </div>
+    {% for error in item.errors %}
+      {{ error }}
+    {% endfor %}
     {% endfor %}
     <div class="py-3">
       <button class="btn btn-primary btn-lg w-100" type="submit">送信</button>

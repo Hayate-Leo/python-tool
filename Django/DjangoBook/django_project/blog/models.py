@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MaxLengthValidator
 
 class Category(models.Model):
     lang_type = models.CharField(max_length=50)
@@ -25,7 +26,9 @@ class Blog(models.Model):
 
 
 class Contact(models.Model):
-    title = models.CharField(max_length=100)
+    title = models.CharField(
+        max_length=100,
+        validators=[MaxLengthValidator(100, '100文字以内で入力してください')])
     content = models.TextField()
     date = models.DateField(auto_now_add=True)
     email = models.EmailField(max_length=200)
