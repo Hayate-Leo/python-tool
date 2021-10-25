@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from .models import Contact, Blog
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Q
-
+from django.http import JsonResponse
 
 class HomeTemplateView(TemplateView):
     template_name = 'blog/home.html'
@@ -36,4 +36,10 @@ class BlogListView(ListView):
         if q := query.get('q'):
             queryset = queryset.filter(Q(content__icontains=q)|Q(title__icontains=q))
 
-        return queryset.order_by('-created_at')
+        return queryset.order_by('-created_at')\
+
+def line_chart(request):
+    data = [1415, 1307, 1496, 1394, 1984]
+    return JsonResponse(data={
+        'data': data,
+    })
