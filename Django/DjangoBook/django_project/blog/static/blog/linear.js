@@ -27,7 +27,7 @@ $(function () {
                 },
                 scales: {
                     xAxes: [{
-                        gridLines: {
+                        gridLines:{
                             display: false
                         }
                     }],
