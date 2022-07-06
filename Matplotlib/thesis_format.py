@@ -15,6 +15,7 @@ class ThesisFormat:
         plt.rcParams['ytick.direction'] = 'in'
         plt.rcParams['font.size'] = 12
         plt.rcParams['axes.linewidth'] = 1.0
+        plt.rcParams['errorbar.capsize'] = 6
         plt.rcParams['lines.markersize'] = 7
         self.line_styles = ['-', '--', '-.', ':']
         self.markers = ['o', ',', '.', 'v', '^', '<', '>', '1', '2', '3', '.', ',', 'o', 'v', '^', '<', '>', '1', '2', '3']
