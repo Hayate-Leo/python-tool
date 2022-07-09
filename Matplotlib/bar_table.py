@@ -66,7 +66,6 @@ class ThesisFormat:
         plt.ylabel("Loss in ${0}'s".format(value_increment))
         plt.yticks(values * value_increment, ['%d' % val for val in values])
         plt.xticks([])
-        plt.title('Loss by Disaster')
 
         plt.show()
 
