@@ -21,45 +21,34 @@ class ThesisFormat:
         plt.rcParams['errorbar.capsize'] = 3
         self.line_styles = ['-', '--', '-.', ':']
         self.markers = ['o', ',', '.', 'v', '^', '<', '>', '1', '2', '3', '.', ',', 'o', 'v', '^', '<', '>', '1', '2', '3']
-
-    
-    def plt_bar(self):
-        labels = ['G1', 'G2', 'G3', 'G4', 'G5']
-        men_means = [20, 35, 30, 35, 27]
-        men_std = [2, 3, 4, 1, 2]
-        width = 0.35       # the width of the bars: can also be len(x) sequence
-
-        fig, ax = plt.subplots()
-
-        ax.bar(labels, men_means, width, yerr=men_std, label='Men')
-
-        ax.set_ylabel('Scores')
-        ax.set_title('Scores by men')
-        ax.legend()
-
-        plt.show()
     
     def plt_group(self):
         labels = ['G1', 'G2', 'G3', 'G4', 'G5']
-        men_means = [20, 35, 30, 35, 27]
+        men_means = [20, 34, 30, 35, 27]
         women_means = [25, 32, 34, 20, 25]
+        # エラーバー
         men_std = [2, 3, 4, 1, 2]
         women_std = [3, 5, 2, 3, 3]
-        width = 0.35       # the width of the bars: can also be len(x) sequence
+
+        x = np.arange(len(labels))
+        width = 0.35
 
         fig, ax = plt.subplots()
-
-        ax.bar(labels, men_means, width, yerr=men_std, label='Men')
-        ax.bar(labels, women_means, width, yerr=women_std, bottom=men_means,
-            label='Women')
+        # ax.bar(x - width/2, men_means, width, label='Men')
+        # ax.bar(x + width/2, women_means, width, label='Women')
+        rects1 = ax.bar(x - width/2, men_means, width, label='Men', yerr=men_std)
+        rects2 = ax.bar(x + width/2, women_means, width, label='Women', yerr=women_std)
 
         ax.set_ylabel('Scores')
         ax.set_title('Scores by group and gender')
+        ax.set_xticks(x, labels)
         ax.legend()
+
+        ax.bar_label(rects1, labels=men_std)
+        ax.bar_label(rects2, labels=women_std)
 
         plt.show()
 
 if __name__ == '__main__':
     thesis_format = ThesisFormat()
-    thesis_format.plt_bar()
     thesis_format.plt_group()
