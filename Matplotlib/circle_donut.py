@@ -52,7 +52,6 @@ class ThesisFormat:
             wedgeprops=dict(width=size, edgecolor='w'))
 
         plt.show()
-        print(vals.sum(axis=1))
 
 if __name__ == '__main__':
     thesis_format = ThesisFormat()
