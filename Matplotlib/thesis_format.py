@@ -17,7 +17,7 @@ class ThesisFormat:
         plt.rcParams['axes.linewidth'] = 1.0
         plt.rcParams['errorbar.capsize'] = 6
         plt.rcParams['lines.markersize'] = 7
-        plt.rcParams['mathtext.fontset'] = 'dejavuserif'
+        plt.rcParams['mathtext.fontset'] = 'cm'
         self.line_styles = ['-', '--', '-.', ':']
         self.markers = ['o', ',', '.', 'v', '^', '<', '>', '1', '2', '3', '.', ',', 'o', 'v', '^', '<', '>', '1', '2', '3']
 
