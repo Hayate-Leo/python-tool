@@ -53,7 +53,7 @@ class FillArea:
         x = np.linspace(0, 10, 11)
         y = [3.9, 4.4, 10.8, 10.3, 11.2, 13.1, 14.1,  9.9, 13.9, 15.1, 12.5]
 
-        # 一次曲線にフィットし，のy値とその誤差を推定する
+        # 一次曲線にフィットし，y値とその誤差を推定する
         a, b = np.polyfit(x, y, deg=1)
         y_est = a * x + b
         y_err = x.std() * np.sqrt(1/len(x) +
@@ -133,7 +133,7 @@ class FillArea:
 if __name__ == '__main__':
     fill_area = FillArea()
     # fill_area.plt_line()
-    # fill_area.plt_bands()
+    fill_area.plt_bands()
     # fill_area.plt_where()
     # fill_area.plt_interpolation()
-    fill_area.plt_xline()
+    # fill_area.plt_xline()
