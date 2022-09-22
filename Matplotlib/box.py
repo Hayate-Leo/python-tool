@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-class ThesisFormat:
+class BoxFormat:
     def __init__(self) -> None:
         self.plt_style()
     
@@ -18,16 +18,14 @@ class ThesisFormat:
         plt.rcParams['font.size'] = 12
         plt.rcParams['axes.linewidth'] = 1.0
         plt.rcParams['errorbar.capsize'] = 6
-        plt.rcParams['lines.markersize'] = 7
+        plt.rcParams['lines.markersize'] = 6
+        plt.rcParams['mathtext.fontset'] = 'cm'
         self.line_styles = ['-', '--', '-.', ':']
-        self.markers = ['o', ',', '.', 'v', '^', '<', '>', '1', '2', '3', '.', ',', 'o', 'v', '^', '<', '>', '1', '2', '3']
+        self.markers = ['o', ',', '.', 'v', '^', '<', '>', '1', '2', '3']
 
     def plt_box(self):
-
-        # Fixing random state for reproducibility
         np.random.seed(19680801)
 
-        # fake up some data
         spread = np.random.rand(50) * 100
         center = np.ones(25) * 50
         flier_high = np.random.rand(10) * 100 + 100
@@ -75,5 +73,5 @@ class ThesisFormat:
 
 
 if __name__ == '__main__':
-    thesis_format = ThesisFormat()
-    thesis_format.plt_box()
+    box_format = BoxFormat()
+    box_format.plt_box()

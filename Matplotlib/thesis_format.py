@@ -16,10 +16,10 @@ class ThesisFormat:
         plt.rcParams['font.size'] = 12
         plt.rcParams['axes.linewidth'] = 1.0
         plt.rcParams['errorbar.capsize'] = 6
-        plt.rcParams['lines.markersize'] = 7
+        plt.rcParams['lines.markersize'] = 6
         plt.rcParams['mathtext.fontset'] = 'cm'
         self.line_styles = ['-', '--', '-.', ':']
-        self.markers = ['o', ',', '.', 'v', '^', '<', '>', '1', '2', '3', '.', ',', 'o', 'v', '^', '<', '>', '1', '2', '3']
+        self.markers = ['o', ',', '.', 'v', '^', '<', '>', '1', '2', '3']
 
     def plt_line(self):
         x = np.linspace(0, 10, 100)
@@ -58,18 +58,18 @@ class ThesisFormat:
         plt.show()
     
     def plt_bar(self):
-        np.random.seed(3)
-        x = 0.5 + np.arange(8)
-        y = np.random.uniform(2, 7, len(x))
+        labels = ['G1', 'G2', 'G3', 'G4', 'G5']
+        men_means = [20, 34, 30, 35, 27]
+        men_std = [2, 3, 4, 1, 2]
+
+        x = np.arange(len(labels))
 
         fig, ax = plt.subplots()
+        ax.bar(x, men_means, label='Men', tick_label=labels, yerr=men_std)
 
-        ax.bar(x, y, label='Sample 1')
-
-        ax.set_xlim(0, 8)
-        ax.set_ylim(0, 8)
-        ax.set_xlabel('Time [$sec$]')
-        ax.set_ylabel('Frequency [$Hz$]')  
+        ax.set_xlabel('X label')
+        ax.set_ylabel('Y label')
+        ax.set_title('Basic bar')
         ax.legend()
 
         plt.show()
@@ -93,7 +93,7 @@ class ThesisFormat:
 
 if __name__ == '__main__':
     thesis_format = ThesisFormat()
-    thesis_format.plt_line()
+    # thesis_format.plt_line()
     # thesis_format.plt_scatter()
-    # thesis_format.plt_bar()
+    thesis_format.plt_bar()
     # thesis_format.plt_step()
