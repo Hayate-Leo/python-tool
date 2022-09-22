@@ -4,7 +4,7 @@
 # https://matplotlib.org/stable/gallery/lines_bars_and_markers/bar_label_demo.html#sphx-glr-gallery-lines-bars-and-markers-bar-label-demo-py
 
 
-from turtle import color
+from gzip import _PaddedFile
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -106,15 +106,15 @@ class BarFormat:
 
         # グループ化された棒グラフのラベル
         axs[0].bar_label(group1, labels=men_means)
-        axs[0].bar_label(group2, labels=women_means)
+        axs[0].bar_label(group2, labels=women_means, padding=10)
 
         # 積み上げ式棒グラフのラベル
-        axs[1].bar_label(stock1, labels=men_means)
-        axs[1].bar_label(stock2, labels=women_means)
+        axs[1].bar_label(stock1, fmt='%.1f')
+        axs[1].bar_label(stock2, fmt='%.1f')
 
         axs[0].set_ylabel('Y label')
-        axs[0].set_title('Group')
-        axs[1].set_title('Stock')
+        axs[0].set_title(f'Group (padding=10 in women)')
+        axs[1].set_title(f'Stock (fmt=%.1f)')
 
         for ax in axs.flat:
             ax.set_xticks(x, labels)
@@ -163,7 +163,7 @@ class BarFormat:
 
         fig.suptitle('Bar error')
         plt.show()
-    
+
     def plt_color(self):
         labels = ['G1', 'G2', 'G3', 'G4', 'G5']
         men_means = [20, 34, 30, 35, 27]
@@ -199,6 +199,6 @@ if __name__ == '__main__':
     # bar_format.plt_bar()
     # bar_format.plt_stock()
     # bar_format.plt_group()
-    # bar_format.plt_label()
+    bar_format.plt_label()
     # bar_format.plt_err()
-    bar_format.plt_color()
+    # bar_format.plt_color()
