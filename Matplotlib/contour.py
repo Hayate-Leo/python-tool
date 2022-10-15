@@ -133,6 +133,20 @@ class ThesisContour:
         ax.set_title('Contour for Thesis')
         plt.show()
     
+    def plt_3d(self):
+        fig, ax = plt.subplots(subplot_kw={'projection': '3d'})
+        # 3Dグラフ
+        SF = ax.plot_surface(self.X, self.Y, self.Z, cmap='viridis')
+
+        # カラーバーの設定
+        cbar = fig.colorbar(SF, aspect=8)
+        cbar.ax.set_ylabel('Z Label')
+
+        ax.set_xlabel('X Label')
+        ax.set_ylabel('Y Label')
+        ax.set_title('3D Contour by 3D surface')
+        plt.show()
+    
 
 if __name__ == '__main__':
     thesis_contour = ThesisContour()
@@ -142,4 +156,5 @@ if __name__ == '__main__':
     # thesis_contour.plt_colors()
     # thesis_contour.plt_cmap()
     # thesis_contour.plt_thesis_contour()
+    thesis_contour.plt_3d()
     

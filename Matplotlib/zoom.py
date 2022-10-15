@@ -4,27 +4,25 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-# from matplotlib.transforms import (
-#     Bbox, TransformedBbox, blended_transform_factory)
-# from mpl_toolkits.axes_grid1.inset_locator import (
-#     BboxPatch, BboxConnector, BboxConnectorPatch)
-
 
 class PlotZoom:
     def __init__(self) -> None:
         self.plt_style()
     
-    def plt_style(self):
+    def plt_style(self):      
+        plt.rcParams['figure.autolayout'] = True
+        plt.rcParams['figure.figsize'] = [6.4, 4.8]
         plt.rcParams['font.family'] ='Times New Roman'
+        plt.rcParams['font.size'] = 12
         plt.rcParams['xtick.direction'] = 'in'
         plt.rcParams['ytick.direction'] = 'in'
-        plt.rcParams['font.size'] = 12
         plt.rcParams['axes.linewidth'] = 1.0
         plt.rcParams['errorbar.capsize'] = 6
-        plt.rcParams['lines.markersize'] = 7
-        plt.rcParams['mathtext.fontset'] = 'dejavuserif'
+        plt.rcParams['lines.markersize'] = 6
+        plt.rcParams['lines.markerfacecolor'] = 'white'
+        plt.rcParams['mathtext.fontset'] = 'cm'
         self.line_styles = ['-', '--', '-.', ':']
-        self.markers = ['o', ',', '.', 'v', '^', '<', '>', '1', '2', '3', '.', ',', 'o', 'v', '^', '<', '>', '1', '2', '3']
+        self.markers = ['o', 's', '^', 'D', 'v', '<', '>', '1', '2', '3']
 
     def plt_in_zoom(self):
         x = np.linspace(0, 10, 100)
