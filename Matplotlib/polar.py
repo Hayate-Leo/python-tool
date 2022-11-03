@@ -84,10 +84,30 @@ class PolarAxis:
 
         plt.show()
 
+    def plt_scatter_colorbar(self):
+        np.random.seed(19680801)
+
+        # 面積と色の計算
+        N = 150
+        r = 2 * np.random.rand(N)
+        theta = 2 * np.pi * np.random.rand(N)
+        area = 200 * r**2
+        colors = area
+
+        fig, ax = plt.subplots(subplot_kw={'projection': 'polar'})
+        SC = ax.scatter(theta, r, c=colors, s=area, cmap='viridis', alpha=0.75)
+
+        # カラーバーの設定
+        cbar = fig.colorbar(SC, aspect=10)
+        cbar.ax.set_ylabel('Z Label')
+
+        plt.show()
+
 
 if __name__ == '__main__':
     polar_axis = PolarAxis()
-    polar_axis.plt_bar()
+    # polar_axis.plt_bar()
     # polar_axis.plt_line()
     # polar_axis.plt_legend()
     # polar_axis.plt_scatter()
+    polar_axis.plt_scatter_colorbar()
