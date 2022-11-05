@@ -12,30 +12,33 @@ class HistoGram:
         self.plt_style()
     
     def plt_style(self):
+        plt.rcParams['figure.autolayout'] = True
+        plt.rcParams['figure.figsize'] = [6.4, 4.8]
         plt.rcParams['font.family'] ='Times New Roman'
+        plt.rcParams['font.size'] = 12
         plt.rcParams['xtick.direction'] = 'in'
         plt.rcParams['ytick.direction'] = 'in'
-        plt.rcParams['font.size'] = 12
         plt.rcParams['axes.linewidth'] = 1.0
         plt.rcParams['errorbar.capsize'] = 6
-        plt.rcParams['lines.markersize'] = 7
-        plt.rcParams['mathtext.fontset'] = 'dejavuserif'
+        plt.rcParams['lines.markersize'] = 6
+        plt.rcParams['lines.markerfacecolor'] = 'white'
+        plt.rcParams['mathtext.fontset'] = 'cm'
         self.line_styles = ['-', '--', '-.', ':']
-        self.markers = ['o', ',', '.', 'v', '^', '<', '>', '1', '2', '3', '.', ',', 'o', 'v', '^', '<', '>', '1', '2', '3']
+        self.markers = ['o', 's', '^', 'D', 'v', '<', '>', '1', '2', '3']
     
     def plt_simple(self):
-        # 再現性のある乱数発生器の作成
+        # step1 再現性のある乱数発生器を作成
         rng = np.random.default_rng(19680801)
 
+        # step2 データの作成
         N_points = 100000
         n_bins = 20
-
-        # 正規分布を生成する
         dist1 = rng.standard_normal(N_points)
 
+        # step3 グラフフレームを作成
         fig, ax = plt.subplots()
 
-        # キーワード引数 *bins* でビンの数を設定
+        # step4 ヒストグラムを描画
         ax.hist(dist1, bins=n_bins)
         ax.set_xlabel('X label')
         ax.set_ylabel('Y label')
@@ -43,33 +46,32 @@ class HistoGram:
         plt.show()
     
     def plt_patch(self):
-        # 再現性のある乱数発生器の作成
+        # step1 再現性のある乱数発生器を作成
         rng = np.random.default_rng(19680801)
-
+        # step2 データの作成
         N_points = 100000
         n_bins = 20
-
-        # 正規分布を生成する
         dist1 = rng.standard_normal(N_points)
-
+        # step3 グラフフレームを作成
         fig, ax = plt.subplots()
 
+        # step4 ヒストグラムを描画
         # Nは各ビン数，binsはビンの下限値
         N, bins, patches = ax.hist(dist1, bins=n_bins)
 
-        # ここでは高さで色分けしているが，任意のスカラー値を使用することも可能
+        # step5 色設定のための準備
+        # 高さで色分け
         fracs = N / N.max()
-
-        # カラーマップの全範囲でデータを0〜1に正規化する必要があります
+        # カラーマップの全範囲でデータを0〜1に正規化
         norm = colors.Normalize(fracs.min(), fracs.max())
-        # オブジェクトをループして，それぞれの色を設定
+
+        # step6 オブジェクトをループして，それぞれの色を設定
         for thisfrac, thispatch in zip(fracs, patches):
-            print(norm(thisfrac))
             color = plt.cm.viridis(norm(thisfrac))
             thispatch.set_facecolor(color)
 
         plt.show()
-        
+
 
     def plt_percentage(self):
         # 再現性のある乱数発生器の作成
@@ -107,50 +109,41 @@ class HistoGram:
         plt.show()
     
     def plt_types(self):
-        np.random.seed(19680801)
+        # 再現性のある乱数発生器の作成
+        rng = np.random.default_rng(19680801)
 
-        mu_x = 200
-        sigma_x = 25
-        x = np.random.normal(mu_x, sigma_x, size=100)
+        N_points = 100000
+        n_bins = 20
 
-        fig, axs = plt.subplots(nrows=1, ncols=2)
+        # 正規分布を生成する
+        dist1 = rng.standard_normal(N_points)
 
-        axs[0].hist(x, 20, density=True, histtype='stepfilled', facecolor='g',
-                    alpha=0.75)
-        axs[0].set_title('stepfilled')
+        fig, ax = plt.subplots()
 
-        axs[1].hist(x, 20, density=True, histtype='step', facecolor='g',
-                    alpha=0.75)
-        axs[1].set_title('step')
+        ax.hist(dist1, bins=n_bins, histtype='step')
+        ax.set_title('histtype=step')
 
-        fig.tight_layout()
         plt.show()
     
     def plt_datasets(self):
-        np.random.seed(19680801)
+        # 再現性のある乱数発生器の作成
+        rng = np.random.default_rng(19680801)
 
-        n_bins = 10
-        x = np.random.randn(1000, 3)
+        N_points = 100000
+        n_bins = 20
 
-        fig, ((ax0, ax1), (ax2, ax3)) = plt.subplots(nrows=2, ncols=2)
+        # 正規分布を生成する
+        dist1 = rng.standard_normal(size=(N_points, 3))
 
-        colors = ['red', 'tan', 'lime']
-        ax0.hist(x, n_bins, density=True, histtype='bar', color=colors, label=colors)
-        ax0.legend(prop={'size': 10})
-        ax0.set_title('bars with legend')
+        fig, ax = plt.subplots()
 
-        ax1.hist(x, n_bins, density=True, histtype='bar', stacked=True)
-        ax1.set_title('stacked bar')
+        # ax.hist(dist1, bins=n_bins, histtype='barstacked')
+        # ax.set_title('multiple datasets by barstacked')
+        # ax.hist(dist1, bins=n_bins)
+        # ax.set_title('multiple datasets by bar')
+        ax.hist(dist1, bins=n_bins, histtype='step', stacked=True)
+        ax.set_title('multiple datasets by step')
 
-        ax2.hist(x, n_bins, histtype='step', stacked=True, fill=False)
-        ax2.set_title('stack step (unfilled)')
-
-        # 長さの異なるデータセットのヒストグラムを作成
-        x_multi = [np.random.randn(n) for n in [10000, 5000, 2000]]
-        ax3.hist(x_multi, n_bins, histtype='bar')
-        ax3.set_title('different sample sizes')
-
-        fig.tight_layout()
         plt.show()
 
 
@@ -160,5 +153,5 @@ if __name__ == '__main__':
     # histogarm.plt_patch()
     # histogarm.plt_percentage()
     # histogarm.plt_2d()
-    histogarm.plt_types()
-    # histogarm.plt_datasets()
+    # histogarm.plt_types()
+    histogarm.plt_datasets()
