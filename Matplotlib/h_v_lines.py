@@ -9,16 +9,19 @@ class HVLines:
         self.plt_style()
     
     def plt_style(self):
+        plt.rcParams['figure.autolayout'] = True
+        plt.rcParams['figure.figsize'] = [6.4, 4.8]
         plt.rcParams['font.family'] ='Times New Roman'
+        plt.rcParams['font.size'] = 12
         plt.rcParams['xtick.direction'] = 'in'
         plt.rcParams['ytick.direction'] = 'in'
-        plt.rcParams['font.size'] = 12
         plt.rcParams['axes.linewidth'] = 1.0
         plt.rcParams['errorbar.capsize'] = 6
-        plt.rcParams['lines.markersize'] = 7
+        plt.rcParams['lines.markersize'] = 6
+        plt.rcParams['lines.markerfacecolor'] = 'white'
         plt.rcParams['mathtext.fontset'] = 'cm'
         self.line_styles = ['-', '--', '-.', ':']
-        self.markers = ['o', ',', '.', 'v', '^', '<', '>', '1', '2', '3', '.', ',', 'o', 'v', '^', '<', '>', '1', '2', '3']
+        self.markers = ['o', 's', '^', 'D', 'v', '<', '>', '1', '2', '3']
     
     def plt_hlines(self):
         t = np.arange(0.0, 5.0, 0.1)
