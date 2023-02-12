@@ -13,53 +13,60 @@ class FillArea:
         self.plt_style()
     
     def plt_style(self):
+        # グラフのフォーマット整形
+        plt.rcParams['figure.autolayout'] = True
+        plt.rcParams['figure.figsize'] = [6.4, 4.8]
         plt.rcParams['font.family'] ='Times New Roman'
+        plt.rcParams['font.size'] = 12
         plt.rcParams['xtick.direction'] = 'in'
         plt.rcParams['ytick.direction'] = 'in'
-        plt.rcParams['font.size'] = 12
         plt.rcParams['axes.linewidth'] = 1.0
         plt.rcParams['errorbar.capsize'] = 6
-        plt.rcParams['lines.markersize'] = 7
+        plt.rcParams['lines.markersize'] = 6
+        plt.rcParams['lines.markerfacecolor'] = 'white'
         plt.rcParams['mathtext.fontset'] = 'cm'
         self.line_styles = ['-', '--', '-.', ':']
-        self.markers = ['o', ',', '.', 'v', '^', '<', '>', '1', '2', '3', '.', ',', 'o', 'v', '^', '<', '>', '1', '2', '3']
+        self.markers = ['o', 's', '^', 'D', 'v', '<', '>', '1', '2', '3']
     
     def plt_line(self):
+        # step1 データの作成
         x = np.linspace(0, 10, 100)
         y1 = 2 * np.sin(2 * x)
         y2 = 4 + 2 * np.sin(2 * x)
+        # step2 グラフフレームの作成
+        fig, ax = plt.subplots()
+        # step3 グラフの描画
+        # ax.plot(x, y1, label=r'$y1 = 2sin(2x)$')
+        # ax.plot(x, y2, label=r'$y2 = y1+4$')
+        # ax.fill_between(x, y1, label=r'$y1 = 2sin(2x)$')
+        # ax.fill_between(x, y1, 1, label=r'$y1 = 2sin(2x)$')
+        ax.fill_between(x, y1, y2, label=r'$y1 = 2sin(2x), y2 = y1+4$')
 
-        fig, axs = plt.subplots(2, 2, sharex=True, constrained_layout=True)
+        # ax.set_title(r'plot y1, y2')
+        # ax.set_title(r'fill between y1 and 0')
+        # ax.set_title(r'fill between y1 and 1')
+        ax.set_title(r'fill between y1 and y2')
 
-        axs[0, 0].plot(x, y1)
-        axs[0, 0].plot(x, y2)
-        axs[0, 1].fill_between(x, y1)
-        axs[1, 0].fill_between(x, y1, 1)
-        axs[1, 1].fill_between(x, y1, y2)
+        ax.set_xlabel('X label')
+        ax.set_ylabel('Y label')
+        ax.set_ylim(-3, 8)
+        ax.legend()
 
-        axs[0, 0].set_title(r'plot y1 and y2')
-        axs[0, 1].set_title(r'fill between y1 and 0')
-        axs[1, 0].set_title(r'fill between y1 and 1')
-        axs[1, 1].set_title(r'fill between y1 and y2')
-
-        for ax in axs.flat:
-            ax.set_xlabel(r'Time [$sec$]')
-            ax.set_ylabel(r'Frequency [$Hz$]')
-        
-        fig.suptitle(r'Plot vs Fill Between, $y1 = 2sin(2x) | y2 = y1+4$')
         plt.show()
     
     def plt_bands(self):
+        # step1 データの作成
         x = np.linspace(0, 10, 11)
         y = [3.9, 4.4, 10.8, 10.3, 11.2, 13.1, 14.1,  9.9, 13.9, 15.1, 12.5]
 
-        # 一次曲線にフィットし，y値とその誤差を推定する
+        # step2 予測線と誤差範囲の推定
         a, b = np.polyfit(x, y, deg=1)
         y_est = a * x + b
         y_err = x.std() * np.sqrt(1/len(x) +
                                 (x - x.mean())**2 / np.sum((x - x.mean())**2))
-
+        # step3 グラフフレームの作成
         fig, ax = plt.subplots()
+        # step4 グラフの描画
         # 予測線
         ax.plot(x, y_est)
         # 予測線の信頼区間
@@ -67,73 +74,73 @@ class FillArea:
         # 実際のデータ
         ax.scatter(x, y)
 
-        fig.suptitle(r'Confidence bands')
+        ax.set_title(r'Confidence bands')
         plt.show()
     
     def plt_where(self):
+        # step1 データの作成
         x = np.linspace(0, 10, 100)
         y1 = 2 * np.sin(2 * x)
         y2 = 2 * np.cos(2 * x)
-        fig, axs = plt.subplots(2, 2, sharex=True, constrained_layout=True)
+        # step2 グラフフレームの作成
+        fig, ax = plt.subplots()
+        # step3 グラフの描画
+        ax.plot(x, y1, '--')
+        ax.plot(x, y2, '--')
+        # ax.fill_between(x, y1, y2, where=y2 >= y1)
+        # ax.fill_between(x, y1, y2, where=y2 <= y1)
+        ax.fill_between(x, y1, y2, where=y2 >= y1, color='C0')
+        ax.fill_between(x, y1, y2, where=y2 <= y1, color='C1')
 
-        axs[0, 0].plot(x, y1)
-        axs[0, 0].plot(x, y2)
-        axs[0, 1].fill_between(x, y1, y2, where=y2 >= y1, facecolor='C0')
-        axs[0, 1].fill_between(x, y1, y2, where=y2 <= y1, facecolor='C1')
-        axs[1, 0].fill_between(x, y1, y2, where=y2 >= y1, facecolor='C0')
-        axs[1, 1].fill_between(x, y1, y2, where=y2 <= y1, facecolor='C1')
-
-        axs[0, 0].set_title(r'plot y1 and y2')
-        axs[0, 1].set_title(r'fill between y1 and y2')
-        axs[1, 0].set_title(r'where = y2 >= y1')
-        axs[1, 1].set_title(r'where = y2 <= y1')
+        # ax.set_title(r'plot y1 and y2')
+        # ax.set_title(r'where = y2 >= y1')
+        # ax.set_title(r'where = y2 <= y1')
+        ax.set_title(r'fill between y1 and y2')
         
-        fig.suptitle(r'How to use where of Fill Between, $y1 = 2sin(2x) | y2 = 2cos(2x)$')
         plt.show()
     
     def plt_interpolation(self):
+        # step1 データの作成
         x = np.array([0, 1, 2, 3])
         y1 = np.array([0.8, 0.8, 0.2, 0.2])
         y2 = np.array([0, 0, 1, 1])
-
-        fig, (ax1, ax2) = plt.subplots(2, 1, sharex=True, constrained_layout=True)
-
-        ax1.set_title('interpolation=False')
-        ax1.plot(x, y1, 'o--')
-        ax1.plot(x, y2, 'o--')
-        ax1.fill_between(x, y1, y2, where=(y1 > y2), color='C0', alpha=0.3)
-        ax1.fill_between(x, y1, y2, where=(y1 < y2), color='C1', alpha=0.3)
-
-        ax2.set_title('interpolation=True')
-        ax2.plot(x, y1, 'o--')
-        ax2.plot(x, y2, 'o--')
-        ax2.fill_between(x, y1, y2, where=(y1 > y2), color='C0', alpha=0.3,
+        # step2 グラフフレームの作成   
+        fig, ax = plt.subplots()
+        # step3 グラフの描画
+        ax.plot(x, y1, 'o--')
+        ax.plot(x, y2, 'o--')
+        ax.fill_between(x, y1, y2, where=(y1 > y2), color='C0', alpha=0.3,
                         interpolate=True)
-        ax2.fill_between(x, y1, y2, where=(y1 <= y2), color='C1', alpha=0.3,
+        ax.fill_between(x, y1, y2, where=(y1 <= y2), color='C1', alpha=0.3,
                         interpolate=True)
+
+        ax.set_title('interpolation=True')
         plt.show()
     
     def plt_xline(self):
+        # step1 データの作成
         y = np.linspace(0, 10, 100)
         x1 = 2 * np.sin(2 * y)
         x2 = 4 + 2 * np.sin(2 * y)
 
-        fig, (ax1, ax2) = plt.subplots(1, 2, sharex=True, constrained_layout=True)
+        # step2 グラフフレームの作成   
+        fig, ax = plt.subplots()
 
-        ax1.plot(x1, y)
-        ax1.plot(x2, y)
-        ax2.fill_betweenx(y, x1, x2)
+        # step3 グラフの描画
+        ax.plot(x1, y, '--', label=r'$x1 = 2sin(2y)$')
+        ax.plot(x2, y, '--', label=r'$x1 = x2+4$')
+        ax.fill_betweenx(y, x1, x2, alpha=0.5)
 
-        ax1.set_title(r'plot x1 and x2')
-        ax2.set_title(r'fill between X x1 and x2')
-        
-        fig.suptitle(r'Plot vs Fill Between X, $x1 = 2sin(2y) | x2 = x1+4$')
+        # ax.set_title(r'plot x1 and x2')
+        ax.set_title(r'fill between X x1 and x2')
+        ax.set_xlim(-3, 10)
+        ax.legend()
         plt.show()
 
 if __name__ == '__main__':
     fill_area = FillArea()
     # fill_area.plt_line()
-    fill_area.plt_bands()
+    # fill_area.plt_bands()
     # fill_area.plt_where()
     # fill_area.plt_interpolation()
-    # fill_area.plt_xline()
+    fill_area.plt_xline()

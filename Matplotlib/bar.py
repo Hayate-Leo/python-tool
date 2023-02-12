@@ -4,7 +4,6 @@
 # https://matplotlib.org/stable/gallery/lines_bars_and_markers/bar_label_demo.html#sphx-glr-gallery-lines-bars-and-markers-bar-label-demo-py
 
 
-from gzip import _PaddedFile
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -13,24 +12,30 @@ class BarFormat:
         self.plt_style()
     
     def plt_style(self):
+        plt.rcParams['figure.autolayout'] = True
+        plt.rcParams['figure.figsize'] = [6.4, 4.8]
         plt.rcParams['font.family'] ='Times New Roman'
+        plt.rcParams['font.size'] = 12
         plt.rcParams['xtick.direction'] = 'in'
         plt.rcParams['ytick.direction'] = 'in'
-        plt.rcParams['font.size'] = 12
         plt.rcParams['axes.linewidth'] = 1.0
-        plt.rcParams['lines.markersize'] = 7
-        plt.rcParams['errorbar.capsize'] = 3
+        plt.rcParams['errorbar.capsize'] = 6
+        plt.rcParams['lines.markersize'] = 6
+        plt.rcParams['lines.markerfacecolor'] = 'white'
+        plt.rcParams['mathtext.fontset'] = 'cm'
         self.line_styles = ['-', '--', '-.', ':']
-        self.markers = ['o', ',', '.', 'v', '^', '<', '>', '1', '2', '3']
+        self.markers = ['o', 's', '^', 'D', 'v', '<', '>', '1', '2', '3']
     
     def plt_bar(self):
+        # step1 データの作成
         labels = ['G1', 'G2', 'G3', 'G4', 'G5']
+        x = np.arange(len(labels))
         men_means = [20, 34, 30, 35, 27]
         women_means = [25, 32, 34, 20, 25]
 
-        x = np.arange(len(labels))
-
+        # step2 グラフフレームの作成
         fig, ax = plt.subplots()
+        # step3 棒グラフの描画
         ax.bar(x, men_means, label='Men', tick_label=labels)
 
         ax.set_xlabel('X label')
@@ -40,165 +45,152 @@ class BarFormat:
 
         plt.show()
 
-    def plt_stock(self):
+    def plt_stack(self):
         labels = ['G1', 'G2', 'G3', 'G4', 'G5']
+        x = np.arange(len(labels))
         men_means = [20, 34, 30, 35, 27]
         women_means = [25, 32, 34, 20, 25]
 
-        x = np.arange(len(labels))
-
         fig, ax = plt.subplots()
-        ax.bar(x, men_means, label='Men')
-        ax.bar(x, women_means, label='Women', bottom=men_means)
+        ax.bar(x, men_means, label='Men', tick_label=labels)
+        ax.bar(x, women_means, label='Women', bottom=men_means, tick_label=labels)
 
-        ax.set_xticks(x, labels)
         ax.set_xlabel('X label')
         ax.set_ylabel('Y label')
-        ax.set_title('Stocked Bar')
+        ax.set_title('Stacked Bar')
         ax.legend()
 
         plt.show()
-    
+
     def plt_group(self):
         labels = ['G1', 'G2', 'G3', 'G4', 'G5']
+        x = np.arange(len(labels))
         men_means = [20, 34, 30, 35, 27]
         women_means = [25, 32, 34, 20, 25]
 
-        x = np.arange(len(labels))
         width = 0.4
 
-        fig, axs = plt.subplots(1, 2, sharey=True)
-        axs[0].bar(x - width/2, men_means, width, label='Men')
-        axs[0].bar(x + width/2, women_means, width, label='Women')
+        fig, ax = plt.subplots()
+        ax.bar(x - width/2, men_means, width, label='Men', tick_label=labels)
+        ax.bar(x + width/2, women_means, width, label='Women', tick_label=labels)
 
-        axs[1].bar(x - width, men_means, width, align='edge', label='Men')
-        axs[1].bar(x, women_means, width, align='edge', label='Women')
+        ax.set_xlabel('X label')
+        ax.set_ylabel('Y label')
+        ax.set_title('Grouped Bar')
+        ax.legend()
 
-        axs[0].set_ylabel('Y label')
-        axs[0].set_title('align=center')
-        axs[1].set_title('align=edge')
+        plt.show()
 
-        for ax in axs.flat:
-            ax.set_xticks(x, labels)
-            ax.set_xlabel('X label')
-            ax.legend()
+    def plt_align(self):
+        labels = ['G1', 'G2', 'G3', 'G4', 'G5']
+        x = np.arange(len(labels))
+        men_means = [20, 34, 30, 35, 27]
+        women_means = [25, 32, 34, 20, 25]
 
-        fig.suptitle('Grouped Bar')
+        fig, ax = plt.subplots()
+        ax.bar(x, men_means, align='edge', label='Men', tick_label=labels)
+
+        ax.set_xlabel('X label')
+        ax.set_ylabel('Y label')
+        ax.set_title('align = edge')
+        ax.legend()
 
         plt.show()
     
     def plt_label(self):
         labels = ['G1', 'G2', 'G3', 'G4', 'G5']
+        x = np.arange(len(labels))
         men_means = [20, 34, 30, 35, 27]
         women_means = [25, 32, 34, 20, 25]
 
-        x = np.arange(len(labels))
-        width = 0.4
+        fig, ax = plt.subplots()
+        # 一般的な棒グラフ
+        basic = ax.bar(x, men_means, width=0.4, label='Men')
+        ax.bar_label(basic, labels=men_means)
+        ax.set_title(f'Basic with label')
 
-        fig, axs = plt.subplots(1, 2, sharey=True)
         # グループ化された棒グラフ
-        group1 = axs[0].bar(x - width/2, men_means, width, label='Men')
-        group2 = axs[0].bar(x + width/2, women_means, width, label='Women')
+        # group1 = ax.bar(x - width/2, men_means, width, label='Men')
+        # group2 = ax.bar(x + width/2, women_means, width, label='Women')
+
+        # ax.bar_label(group1, labels=men_means)
+        # ax.bar_label(group2, labels=women_means, padding=10)
+        # ax.set_title(f'Group (padding=10 in women)')
 
         #積み上げ式棒グラフ
-        stock1 = axs[1].bar(labels, men_means, width, label='Men')
-        stock2 = axs[1].bar(labels, women_means, width, bottom=men_means, label='Women')
+        # stock1 = ax.bar(labels, men_means, width, label='Men')
+        # stock2 = ax.bar(labels, women_means, width, bottom=men_means, label='Women')
 
-        # グループ化された棒グラフのラベル
-        axs[0].bar_label(group1, labels=men_means)
-        axs[0].bar_label(group2, labels=women_means, padding=10)
+        # ax.bar_label(stock1, fmt='%.1f')
+        # ax.bar_label(stock2, fmt='%.1f')
 
-        # 積み上げ式棒グラフのラベル
-        axs[1].bar_label(stock1, fmt='%.1f')
-        axs[1].bar_label(stock2, fmt='%.1f')
+        # ax.set_xlabel('X label')
+        # ax.set_ylabel('Y label')
+        # ax.set_title(f'Stack (fmt=%.1f)')
 
-        axs[0].set_ylabel('Y label')
-        axs[0].set_title(f'Group (padding=10 in women)')
-        axs[1].set_title(f'Stock (fmt=%.1f)')
+        ax.set_xticks(x, labels)
+        ax.legend()
 
-        for ax in axs.flat:
-            ax.set_xticks(x, labels)
-            ax.set_xlabel('X label')
-            ax.legend()
-
-        fig.suptitle('Bar label')
         plt.show()
     
     def plt_err(self):
         labels = ['G1', 'G2', 'G3', 'G4', 'G5']
+        x = np.arange(len(labels))
         men_means = [20, 34, 30, 35, 27]
-        women_means = [25, 32, 34, 20, 25]
         # エラーバーのデータ
         men_std = [2, 3, 4, 1, 2]
-        women_std = [3, 5, 2, 3, 3]
 
-        x = np.arange(len(labels))
         width = 0.4
 
-        fig, axs = plt.subplots(1, 2, sharey=True)
-        # グループ化された棒グラフ
-        group1 = axs[0].bar(x - width/2, men_means, width, label='Men', yerr=men_std)
-        group2 = axs[0].bar(x + width/2, women_means, width, label='Women', yerr=women_std)
+        fig, ax = plt.subplots()
 
-        #積み上げ式棒グラフ
-        stock1 = axs[1].bar(labels, men_means, width, label='Men', yerr=men_std)
-        stock2 = axs[1].bar(labels, women_means, width, bottom=men_means, label='Women', yerr=women_std)
-
-        # グループ化された棒グラフのラベル
-        axs[0].bar_label(group1, labels=['±%.1f' % e for e in men_std])
-        axs[0].bar_label(group2, labels=['±%.1f' % e for e in women_std])
-
-        # 積み上げ式棒グラフのラベル
-        axs[1].bar_label(stock1, labels=['±%.1f' % e for e in men_std])
-        axs[1].bar_label(stock2, labels=['±%.1f' % e for e in women_std])
-
-        axs[0].set_ylabel('Y label')
-        axs[0].set_title('Group')
-        axs[1].set_title('Stock')
-
-        for ax in axs.flat:
-            ax.set_xticks(x, labels)
-            ax.set_xlabel('X label')
-            ax.legend()
-
-        fig.suptitle('Bar error')
+        # 一般的な棒グラフのエラーバー
+        # ax.bar(x, men_means, width, yerr=men_std)
+        # エラーバーのラベル付き棒グラフ
+        # basic = ax.bar(x, men_means, width, yerr=men_std)
+        # ax.bar_label(basic, labels=['±%.1f' % e for e in men_std])
+        # エラーバーの色
+        # ax.bar(x, men_means, width, yerr=men_std, ecolor='red')
+        # エラーバーのサイズ
+        ax.bar(x, men_means, width, yerr=men_std, capsize=10)
+        
+        ax.set_title('Size of error bars')
+        ax.set_xticks(x, labels)
         plt.show()
 
     def plt_color(self):
         labels = ['G1', 'G2', 'G3', 'G4', 'G5']
-        men_means = [20, 34, 30, 35, 27]
-        women_means = [25, 32, 34, 20, 25]
-        men_std = [2, 3, 4, 1, 2]
-        women_std = [3, 5, 2, 3, 3]
-
         x = np.arange(len(labels))
+        men_means = [20, 34, 30, 35, 27]
 
-        fig, axs = plt.subplots(2, 2, sharey=True, sharex=True)
-        axs[0, 0].bar(x, men_means, color=['C'+str(i) for i in range(len(men_means))], log=True)
-        axs[0, 1].bar(x, women_means, edgecolor=['C'+str(i) for i in range(len(women_means))],linewidth=x, log=True)
+        fig, ax = plt.subplots()
+        # ax.bar(x, men_means, color=['C'+str(i) for i in range(len(men_means))])
+        ax.bar(x, men_means, color='white', edgecolor=['C'+str(i) for i in range(len(men_means))], linewidth=5)
 
-        axs[1, 0].bar(x, men_means, tick_label=labels, yerr=men_std, ecolor='red', log=True)
-        axs[1, 1].bar(x, women_means , tick_label=labels, yerr=women_std, capsize=10, log=True)     
-
-        axs[0, 0].set_title('Color')
-        axs[0, 1].set_title('Edgecolor')
-        axs[1, 0].set_title('Ecolor=red')
-        axs[1, 1].set_title('capsize=10')
-
-        axs[1, 0].set_xlabel('[1, 0] label')
-        axs[1, 1].set_xlabel('[1, 1] label')
-        axs[0, 0].set_ylabel('[0, 0] label')
-        axs[1, 0].set_ylabel('[1, 0] label')
-
-        fig.suptitle('color & edgecolor & linewidth & ecolor & capsize in logbar')
-
+        ax.set_title('EdgeColor of bars')
+        ax.set_xticks(x, labels)
         plt.show()
+
+    def plt_log(self):
+        labels = ['G1', 'G2', 'G3', 'G4', 'G5']
+        x = np.arange(len(labels))
+        men_means = [20, 34, 30, 35, 27]
+
+        fig, ax = plt.subplots()
+        ax.bar(x, men_means, log=True)
+
+        ax.set_title('log scale bar')
+        ax.set_xticks(x, labels)
+        plt.show()
+
 
 if __name__ == '__main__':
     bar_format = BarFormat()
     # bar_format.plt_bar()
-    # bar_format.plt_stock()
+    bar_format.plt_stack()
     # bar_format.plt_group()
-    bar_format.plt_label()
+    # bar_format.plt_align()
+    # bar_format.plt_label()
     # bar_format.plt_err()
     # bar_format.plt_color()
+    # bar_format.plt_log()

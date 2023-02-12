@@ -3,22 +3,12 @@
 
 import matplotlib.pyplot as plt
 import numpy as np
+from thesis_format import ThesisFormat
 
-class HVLines:
+
+class HVLines(ThesisFormat):
     def __init__(self) -> None:
-        self.plt_style()
-    
-    def plt_style(self):
-        plt.rcParams['font.family'] ='Times New Roman'
-        plt.rcParams['xtick.direction'] = 'in'
-        plt.rcParams['ytick.direction'] = 'in'
-        plt.rcParams['font.size'] = 12
-        plt.rcParams['axes.linewidth'] = 1.0
-        plt.rcParams['errorbar.capsize'] = 6
-        plt.rcParams['lines.markersize'] = 7
-        plt.rcParams['mathtext.fontset'] = 'cm'
-        self.line_styles = ['-', '--', '-.', ':']
-        self.markers = ['o', ',', '.', 'v', '^', '<', '>', '1', '2', '3', '.', ',', 'o', 'v', '^', '<', '>', '1', '2', '3']
+        super().__init__()
     
     def plt_hlines(self):
         t = np.arange(0.0, 5.0, 0.1)

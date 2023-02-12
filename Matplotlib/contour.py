@@ -5,23 +5,11 @@
 
 import matplotlib.pyplot as plt
 import numpy as np
+from thesis_format import ThesisFormat
 
-class ThesisContour:
+class ThesisContour(ThesisFormat):
     def __init__(self) -> None:
-        self.plt_style()
-        self.plt_data()
-    
-    def plt_style(self):
-        plt.rcParams['font.family'] ='Times New Roman'
-        plt.rcParams['xtick.direction'] = 'in'
-        plt.rcParams['ytick.direction'] = 'in'
-        plt.rcParams['font.size'] = 12
-        plt.rcParams['axes.linewidth'] = 1.0
-        plt.rcParams['errorbar.capsize'] = 6
-        plt.rcParams['lines.markersize'] = 7
-        plt.rcParams['mathtext.fontset'] = 'cm'
-        self.line_styles = ['-', '--', '-.', ':']
-        self.markers = ['o', ',', '.', 'v', '^', '<', '>', '1', '2', '3', '.', ',', 'o', 'v', '^', '<', '>', '1', '2', '3']
+        super().__init__()
     
     def plt_data(self):
         delta = 0.025
@@ -31,13 +19,16 @@ class ThesisContour:
         Z1 = np.exp(-X**2 - Y**2)
         Z2 = np.exp(-(X - 1)**2 - (Y - 1)**2)
         Z = (Z1 - Z2) * 2
-        self.X = X
-        self.Y = Y
-        self.Z = Z
+        return X, Y, Z
 
     def plt_contour(self):
+        # step1 3次元データの呼び出し
+        X, Y, Z = self.plt_data()
+        # step2 グラフフレームの作成
         fig, ax = plt.subplots()
-        CS = ax.contour(self.X, self.Y, self.Z)
+        # step3 等高線グラフの描画
+        CS = ax.contour(X, Y, Z)
+        # step4 等高線グラフのラベル表示
         ax.clabel(CS, inline=True)
 
         ax.set_xlabel('X Label')
@@ -46,9 +37,13 @@ class ThesisContour:
         plt.show()
     
     def plt_contourf(self):
+        # step1 3次元データの呼び出し
+        X, Y, Z = self.plt_data()
+        # step2 グラフフレームの作成
         fig, ax = plt.subplots()
-        CS = ax.contourf(self.X, self.Y, self.Z)
-
+        # step3 塗りつぶし等高線グラフの描画
+        CS = ax.contourf(X, Y, Z)
+        # step4 カラーバーの表示
         fig.colorbar(CS)
 
         ax.set_xlabel('X Label')
@@ -57,73 +52,65 @@ class ThesisContour:
         plt.show()
     
     def plt_levels(self):
-        fig, axs = plt.subplots(1, 2, constrained_layout=True)
+        X, Y, Z = self.plt_data()
+        fig, ax = plt.subplots()
 
-        CS1 = axs[0].contour(self.X, self.Y, self.Z)
-        CS2 = axs[1].contour(self.X, self.Y, self.Z, levels=13)
+        CS = ax.contour(X, Y, Z, levels=13)
 
-        axs[0].clabel(CS1, inline=True)
-        axs[1].clabel(CS2, inline=True)
+        ax.clabel(CS, inline=True)
 
-        for ax in axs.flat:
-            ax.set_xlabel('X Label')
-            ax.set_ylabel('Y Label')
-
-        axs[0].set_title('Levels default')
-        axs[1].set_title('Levels 13')
+        ax.set_xlabel('X Label')
+        ax.set_ylabel('Y Label')
+        ax.set_title('Levels 13')
 
         plt.show()
 
     def plt_colors(self):
-        fig, axs = plt.subplots(2, 2, constrained_layout=True)
+        X, Y, Z = self.plt_data()
+        fig, ax = plt.subplots()
 
-        axs[0, 0].contour(self.X, self.Y, self.Z)
-        axs[0, 1].contour(self.X, self.Y, self.Z, colors='red')
-        axs[1, 0].contour(self.X, self.Y, self.Z, colors=['red', 'black'])
-        axs[1, 1].contour(self.X, self.Y, self.Z, colors='red', alpha=0.5)
+        # ax.contour(X, Y, Z, colors='red')
+        # ax.contour(X, Y, Z, colors=['red', 'black'])
+        ax.contour(X, Y, Z, colors='#0097a7', alpha=0.5)
 
-        for ax in axs.flat:
-            ax.set_xlabel('X Label')
-            ax.set_ylabel('Y Label')
+        ax.set_xlabel('X Label')
+        ax.set_ylabel('Y Label')
 
-        axs[0, 0].set_title('Colors Blank')
-        axs[0, 1].set_title('Colors Red')
-        axs[1, 0].set_title('Colors Red & Black')
-        axs[1, 1].set_title('Colors Red Alpha=0.5')
+        # ax.set_title('Colors Red')
+        # ax.set_title('Colors Red & Black')
+        ax.set_title('Colors="#0097a7" Alpha=0.5')
 
         plt.show()
     
     def plt_cmap(self):
-        fig, axs = plt.subplots(2, 2, constrained_layout=True)
+        X, Y, Z = self.plt_data()
+        fig, ax = plt.subplots()
 
-        cmaps = ['viridis', 'Greys', 'winter', 'bwr']
+        cmaps = ['viridis', 'Greys', 'bwr']
+        cmap=cmaps[2]
+        CS = ax.contourf(X, Y, Z, cmap=cmap)
+        fig.colorbar(CS, ax=ax)
 
-        count = 0
-        for col in range(2):
-            for row in range(2):
-                cmap = cmaps[count]
-                ax = axs[row, col]
-                CS = ax.contourf(self.X, self.Y, self.Z, cmap=cmap)
-                fig.colorbar(CS, ax=ax)
-
-                ax.set_xlabel('X Label')
-                ax.set_ylabel('Y Label')
-                ax.set_title('Cmap '+cmap)
-
-                count += 1
+        ax.set_xlabel('X Label')
+        ax.set_ylabel('Y Label')
+        ax.set_title('Cmap '+cmap)
 
         plt.show()
     
     def plt_thesis_contour(self):
+        # step1 3次元データの呼び出し
+        X, Y, Z = self.plt_data()
+        # step2 グラフフレームの作成
         fig, ax = plt.subplots()
-        # 等高線のラベル
-        CS = ax.contour(self.X, self.Y, self.Z, colors='black')
+        # step3 等高線グラフの描画
+        CS = ax.contour(X, Y, Z, colors='black')
+        # step4 等高線グラフのラベル表示
         ax.clabel(CS, inline=True)
 
-        # 等高線の塗りつぶし
-        CSf = ax.contourf(self.X, self.Y, self.Z)
+        # step5 等高線の塗りつぶし
+        CSf = ax.contourf(X, Y, Z)
 
-        # カラーバーの設定
+        # step6 カラーバーの設定
         cbar = fig.colorbar(CSf)
         cbar.ax.set_ylabel('Z Label')
         cbar.add_lines(CS)
@@ -134,9 +121,10 @@ class ThesisContour:
         plt.show()
     
     def plt_3d(self):
+        X, Y, Z = self.plt_data()
         fig, ax = plt.subplots(subplot_kw={'projection': '3d'})
         # 3Dグラフ
-        SF = ax.plot_surface(self.X, self.Y, self.Z, cmap='viridis')
+        SF = ax.plot_surface(X, Y, Z, cmap='viridis')
 
         # カラーバーの設定
         cbar = fig.colorbar(SF, aspect=8)
@@ -154,7 +142,7 @@ if __name__ == '__main__':
     # thesis_contour.plt_contourf()
     # thesis_contour.plt_levels()
     # thesis_contour.plt_colors()
-    # thesis_contour.plt_cmap()
+    thesis_contour.plt_cmap()
     # thesis_contour.plt_thesis_contour()
-    thesis_contour.plt_3d()
+    # thesis_contour.plt_3d()
     
