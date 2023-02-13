@@ -1,26 +1,13 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from thesis_format import ThesisFormat
 
-class StackPlot:
+class StackPlot(ThesisFormat):
     def __init__(self) -> None:
-        self.plt_style()
-    
-    def plt_style(self):
-        plt.rcParams['figure.autolayout'] = True
-        plt.rcParams['figure.figsize'] = [6.4, 4.8]
-        plt.rcParams['font.family'] ='Times New Roman'
-        plt.rcParams['font.size'] = 12
-        plt.rcParams['xtick.direction'] = 'in'
-        plt.rcParams['ytick.direction'] = 'in'
-        plt.rcParams['axes.linewidth'] = 1.0
-        plt.rcParams['errorbar.capsize'] = 6
-        plt.rcParams['lines.markersize'] = 6
-        plt.rcParams['lines.markerfacecolor'] = 'white'
-        plt.rcParams['mathtext.fontset'] = 'cm'
-        self.line_styles = ['-', '--', '-.', ':']
-        self.markers = ['o', 's', '^', 'D', 'v', '<', '>', '1', '2', '3']
+        super().__init__()
 
     def plt_simple(self):
+        # step1 データの作成
         x = np.linspace(0, 10, 100)
         dict_y = {
             'y1': x**1.5,
@@ -29,11 +16,11 @@ class StackPlot:
             'y4': np.exp(0.4*x),
             'y5': np.exp(0.4*x)+np.sin(x),
         }
-
+        # step2 グラフフレームの作成
         fig, ax = plt.subplots()
-
+        # step3 積み上げ面グラフの描画
         ax.stackplot(x, dict_y.values(), labels=dict_y.keys())
-        
+
         ax.set_xlabel('X label')
         ax.set_ylabel('Y label')
         ax.legend(loc='upper left')
