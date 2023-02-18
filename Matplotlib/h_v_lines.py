@@ -39,46 +39,53 @@ class HVLines(ThesisFormat):
         plt.show()
     
     def plt_axlines(self):
-        fig, axs = plt.subplots(2, 2, constrained_layout=True)
-
+        # step1 グラフフレームの作成
+        fig, ax = plt.subplots()
+        # step2 Axes.axhlineとAxes.axvlineによる直線の表示
         threshold = 0.75
-        axs[0, 0].axhline(threshold, color='C0', lw=2)
-        axs[0, 1].axvline(threshold, color='C1', lw=2)
-        axs[1, 0].axline((0, 0), (4, 8), color='C2', lw=2)
-        axs[1, 1].axline((0, 0), slope=0.5, color='C2', lw=2)
+        # ax.axhline(threshold, color='C0', lw=2)
+        # ax.set_title('Axhline')
 
-        axs[0, 0].set_title('Axhline')
-        axs[0, 1].set_title('Axvline')
-        axs[1, 0].set_title(r'Axline $(0, 0) (4, 8)$')
-        axs[1, 1].set_title(r'Axline $y=0.5x$')
+        # ax.axvline(threshold, color='C1', lw=2)
+        # ax.set_title('Axvline')
+        
+        # ax.axline((0, 0), (4, 8), color='red', lw=2)
+        # ax.set_title(r'Axline $(0, 0) (4, 8)$')
 
-        for ax in axs.flat:
-            ax.set_xlim(0, 1)
-            ax.set_ylim(0, 1)
+        ax.axline((0, 0), slope=0.5, color='#0097a7', lw=2)
+        ax.set_title(r'Axline $y=0.5x$')
+
+        ax.set_xlim(0, 1)
+        ax.set_ylim(0, 1)
+        ax.set_xlabel('Xlabel')
+        ax.set_ylabel('Ylabel')
 
         plt.show()
     
     def plt_axspan(self):
-        fig, axs = plt.subplots(1, 2, constrained_layout=True)
-
+        # step1 データの作成
         min_value = 5
         max_value = 8
-        axs[0].axhspan(min_value, max_value, color='C0', alpha=0.7)
-        axs[1].axvspan(min_value, max_value, color='C1', alpha=0.7)
+        # step2 グラフフレームの作成
+        fig, ax = plt.subplots()
+        # step3 Axes.hspanによる水平帯線の表示
+        # ax.axhspan(min_value, max_value, color='C0', alpha=0.7)
+        # ax.set_title('Axhspan')
+        # step3 Axes.vspanによる垂直帯線の表示
+        ax.axvspan(min_value, max_value, color='C1', alpha=0.7)
+        ax.set_title('Axvspan')
 
-        axs[0].set_title('Axhspan')
-        axs[1].set_title('Axvspan')
-
-        for ax in axs.flat:
-            ax.set_xlim(0, 10)
-            ax.set_ylim(0, 10)
+        ax.set_xlim(0, 10)
+        ax.set_ylim(0, 10)
+        ax.set_xlabel('Xlabel')
+        ax.set_ylabel('Ylabel')
 
         plt.show()
 
 if __name__ == '__main__':
     h_v_lines = HVLines()
     # h_v_lines.plt_hlines()
-    h_v_lines.plt_vlines()
+    # h_v_lines.plt_vlines()
     # h_v_lines.plt_axlines()
-    # h_v_lines.plt_axspan()
+    h_v_lines.plt_axspan()
     
