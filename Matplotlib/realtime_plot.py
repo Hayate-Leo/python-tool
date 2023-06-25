@@ -3,22 +3,11 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
+from thesis_format import ThesisFormat
 
-
-class RealTime:
+class RealTime(ThesisFormat):
     def __init__(self) -> None:
-        self.plt_style()
-    
-    def plt_style(self):
-        plt.rcParams['font.family'] ='Times New Roman'
-        plt.rcParams['xtick.direction'] = 'in'
-        plt.rcParams['ytick.direction'] = 'in'
-        plt.rcParams['font.size'] = 12
-        plt.rcParams['axes.linewidth'] = 1.0
-        plt.rcParams['errorbar.capsize'] = 6
-        plt.rcParams['lines.markersize'] = 7
-        self.line_styles = ['-', '--', '-.', ':']
-        self.markers = ['o', ',', '.', 'v', '^', '<', '>', '1', '2', '3', '.', ',', 'o', 'v', '^', '<', '>', '1', '2', '3']
+        super().__init__()
 
     def plt_line(self):
         xs = []
@@ -37,8 +26,8 @@ class RealTime:
             
             ax.set_xlim(0, 8)
             ax.set_ylim(0, 8)
-            ax.set_xlabel('Time [$sec$]')
-            ax.set_ylabel('Frequency [$Hz$]')
+            ax.set_xlabel('Xlabel')
+            ax.set_ylabel('Ylabel')
             ax.legend()
 
             plt.pause(0.001)

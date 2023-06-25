@@ -177,6 +177,26 @@ class ThesisFormat:
 
         plt.show()
 
+    def plt_circle(self):
+        labels = ['A', 'B', 'C', 'D']
+        sizes = [15, 30, 45, 10]
+
+        fig, ax = plt.subplots()
+        # カラーマップの指定
+        cmap = plt.colormaps['viridis']
+        colors = cmap((np.linspace(0.4, 0.9, len(sizes))))
+        # 円グラフの描画
+        ax.pie(sizes, labels=labels, autopct='%.0f%%', startangle=90, counterclock=False, normalize=True,
+            colors=colors,
+            wedgeprops = {'edgecolor': 'white', 'linewidth': 1.2}, 
+            textprops={'fontsize': 17, 'fontweight': 'bold', 'family': 'Times new roman'}
+        )
+
+        ax.set_title('circle plot for a thesis')
+        ax.legend(loc='center left', bbox_to_anchor=(1, 0, 0.5, 1))
+
+        plt.show()
+
     def plt_contour(self):
         delta = 0.025
         x = np.arange(-3.0, 3.0, delta)
@@ -213,4 +233,5 @@ if __name__ == '__main__':
     # thesis_format.plt_bar()
     thesis_format.plt_bar_group_stack()
     # thesis_format.plt_step()
+    thesis_format.plt_circle()
     # thesis_format.plt_contour()
