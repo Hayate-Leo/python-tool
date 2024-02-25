@@ -20,14 +20,11 @@ class RealTime(ThesisFormat):
             y1.append(4 + 2 * np.sin(2 * x))
             y2.append(4 + 2 * np.cos(2 * x))
 
-            line1, = ax.plot(xs, y1, linestyle=self.line_styles[0], label='Sample1')
-            line2, = ax.plot(xs, y2, linestyle=self.line_styles[1], label='Sample2')
+            line1, = ax.plot(xs, y1, color='C0', linestyle=self.line_styles[0], label='Sample1')
+            line2, = ax.plot(xs, y2, color='C1',linestyle=self.line_styles[1], label='Sample2')
 
-            
-            ax.set_xlim(0, 8)
-            ax.set_ylim(0, 8)
-            ax.set_xlabel('Xlabel')
-            ax.set_ylabel('Ylabel')
+            ax.set_xlabel('X label')
+            ax.set_ylabel('Y label')
             ax.legend()
 
             plt.pause(0.001)
