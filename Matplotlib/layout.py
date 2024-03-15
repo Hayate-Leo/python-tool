@@ -4,21 +4,13 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import matplotlib.gridspec as gridspec
+from thesis_format import ThesisFormat
 
-class ThesisFormat:
+
+class LayoutFormat(ThesisFormat):
     def __init__(self) -> None:
-        self.plt_style()
+        super().__init__()
     
-    def plt_style(self):
-        plt.rcParams['font.family'] ='Times New Roman'
-        plt.rcParams['xtick.direction'] = 'in'
-        plt.rcParams['ytick.direction'] = 'in'
-        plt.rcParams['font.size'] = 12
-        plt.rcParams['axes.linewidth'] = 1.0
-        plt.rcParams['errorbar.capsize'] = 6
-        plt.rcParams['lines.markersize'] = 7
-        self.line_styles = ['-', '--', '-.', ':']
-        self.markers = ['o', ',', '.', 'v', '^', '<', '>', '1', '2', '3', '.', ',', 'o', 'v', '^', '<', '>', '1', '2', '3']
 
     def plt_line(self):
         x = np.linspace(0, 10, 100)
