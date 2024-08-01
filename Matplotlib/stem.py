@@ -8,97 +8,65 @@ import numpy as np
 
 class StemFormat:
     def __init__(self) -> None:
-        self.plt_style()
-    
-    def plt_style(self):
-        plt.rcParams['font.family'] ='Times New Roman'
-        plt.rcParams['xtick.direction'] = 'in'
-        plt.rcParams['ytick.direction'] = 'in'
-        plt.rcParams['font.size'] = 12
-        plt.rcParams['axes.linewidth'] = 1.0
-        plt.rcParams['errorbar.capsize'] = 6
-        plt.rcParams['lines.markersize'] = 7
-        plt.rcParams['mathtext.fontset'] = 'cm'
-        self.line_styles = ['-', '--', '-.', ':']
-        self.markers = ['o', ',', '.', 'v', '^', '<', '>', '1', '2', '3', '.', ',', 'o', 'v', '^', '<', '>', '1', '2', '3']
+        pass
     
     def plt_stem(self):
+        # step1 データの作成
         x = np.linspace(0.1, 2 * np.pi, 41)
         y = np.exp(np.sin(x))
-
+        # step2 グラフフレームの作成
         fig, ax = plt.subplots()
-
+        # step3 ステムプロットの描画
         ax.stem(x, y)
+        # step4 軸ラベルとリミット，タイトルの設定
         ax.set_xlabel('X Label')
         ax.set_ylabel('Y Label')
-
         ax.set_xlim(0, 6)
-
         ax.set_title('Stem demo')
+        # step5 Figureの呼び出し
         plt.show()
     
     def plt_stem_fmt(self):
-        x = np.linspace(0.1, 2 * np.pi, 21)
+        # step1 データの作成
+        x = np.linspace(0.1, 2 * np.pi, 41)
         y = np.exp(np.sin(x))
-
-        fig, axs = plt.subplots(2, 2, constrained_layout=True)
-
-        axs[0, 0].stem(x, y, linefmt=None, markerfmt=None, basefmt=None)
-        axs[0, 1].stem(x, y, linefmt='--')
-        axs[1, 0].stem(x, y, markerfmt='^')
-        axs[1, 1].stem(x, y, basefmt='C2')
-
-        titles = ['Stem Default', 'LineFmt', 'MarkerFmt', 'BaseFmt']
-
-        for ax, title in zip(axs.flat, titles):
-            ax.set_xlabel('X Label')
-            ax.set_ylabel('Y Label')
-            ax.set_title(title)
-
-        fig.suptitle('Stem Fmt')
+        # step2 グラフフレームの作成
+        fig, ax = plt.subplots()
+        # step3 ステムプロットの描画
+        # ax.stem(x, y, linefmt='g:')
+        # ax.stem(x, y, markerfmt='r*')
+        ax.stem(x, y, basefmt='m-.D')
+        # step4 軸ラベルとタイトルの設定
+        ax.set_xlabel('X Label')
+        ax.set_ylabel('Y Label')
+        # ax.set_title('Stem LineFmt "g:"')
+        # ax.set_title('Stem MarkerFmt "r*"')
+        ax.set_title('Stem BaseFmt "m-.D"')
+        # step5 Figureの呼び出し
         plt.show()
+
     
     def plt_orient(self):
-        x = np.linspace(0.1, 2 * np.pi, 21)
+        # step1 データの作成
+        x = np.linspace(0.1, 2 * np.pi, 41)
         y = np.exp(np.sin(x))
-
-        fig, axs = plt.subplots(1, 2, constrained_layout=True)
-        axs[0].stem(x, y, orientation='vertical')
-        axs[1].stem(x, y, orientation='horizontal')
-
-        titles = ['Vertical', 'Horizontal']
-
-        for ax, title in zip(axs.flat, titles):
-            ax.set_xlabel('X Label')
-            ax.set_ylabel('Y Label')
-            ax.set_title(title)
-
-        fig.suptitle('Stem Orientation')
-        plt.show()
-    
-    def plt_bottom_label(self):
-        x = np.linspace(0.1, 2 * np.pi, 21)
-        y = np.exp(np.sin(x))
-
-        fig, axs = plt.subplots(1, 2, constrained_layout=True)
-        axs[0].stem(x, y, bottom=0, label='bottom=0')
-        axs[1].stem(x, y, bottom=1, label='bottom=1')
-
-        titles = ['Bottom=0', 'Bottom=1']
-
-        for ax, title in zip(axs.flat, titles):
-            ax.set_xlabel('X Label')
-            ax.set_ylabel('Y Label')
-            ax.set_title(title)
-            ax.legend()
-
-        fig.suptitle('Stem Bottom Label')
+        # step2 グラフフレームの作成
+        fig, ax = plt.subplots()
+        # step3 ステムプロットの描画
+        # ax.stem(x, y, orientation='horizontal', label='hrizontal')
+        ax.stem(x, y, bottom=1, label='bottom=1')
+        # step4 軸ラベルとタイトルの設定
+        ax.set_xlabel('X Label')
+        ax.set_ylabel('Y Label')
+        ax.set_title('Stem bottom')
+        ax.legend()
+        # step5 Figureの呼び出し
         plt.show()
 
 
 if __name__ == '__main__':
     stem_format = StemFormat()
-    stem_format.plt_stem()
+    # stem_format.plt_stem()
     # stem_format.plt_stem_fmt()
-    # stem_format.plt_orient()
+    stem_format.plt_orient()
     # stem_format.plt_bottom_label()
