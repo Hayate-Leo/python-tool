@@ -34,6 +34,18 @@ print(checkbox.checkState())  # Qt.Unchecked / Qt.Checked / Qt.PartiallyChecked
 from PySide6.QtWidgets import QStyleOptionButton
 option = QStyleOptionButton()
 checkbox.initStyleOption(option)
+
+radio1.setChecked(True)
+print(radio1.isChecked())  # True or False
+print(radio2.isChecked())  # True or False
+
+radio1.toggled.connect(lambda checked: print(f"選択状態: {checked}"))
+
+checkbox.setText("同意します")
+radio1.setText("Pure Python派")
+radio2.setText("Anaconda派")
+text = checkbox.text()
+print(text)
 # ======================================
 layout.addWidget(checkbox)
 layout.addWidget(radio1)
