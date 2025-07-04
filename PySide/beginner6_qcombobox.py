@@ -35,6 +35,25 @@ print(f"編集可能か？: {combo.isEditable()}")
 combo.addItems(["A", "B", "C"])
 # 表示されるアイテム数の最大値を設定
 combo.setMaxVisibleItems(5)
+
+combo.setEditable(True)
+combo.setInsertPolicy(QComboBox.InsertAtTop)
+
+from PySide6.QtWidgets import QCompleter
+combo.setEditable(True)
+completer = QCompleter(["候補1", "候補2", "候補3"])
+combo.setCompleter(completer)
+
+combo.activated.connect(lambda i: print(f"選ばれたインデックス: {i}"))
+
+combo.currentIndexChanged.connect(lambda i: print(f"新しいインデックス: {i}"))
+
+combo.addItem("追加されたデータ", userData=123)
+data = combo.itemData(6)
+print(f"追加されたデータ: {data}")
+
+combo.setItemText(0, "新しいテキスト")
+print(combo.itemText(0))
 # ========================================
 
 layout.addWidget(combo)
