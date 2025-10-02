@@ -2,7 +2,7 @@ import sys
 import cv2
 from PySide6.QtWidgets import QApplication, QLabel, QWidget, QVBoxLayout
 from PySide6.QtCore import QTimer, Qt
-from PySide6.QtGui import QImage, QPixmap
+from PySide6.QtGui import QImage, QPixmap, QFont
 
 
 class CameraApp(QWidget):
@@ -10,6 +10,7 @@ class CameraApp(QWidget):
         super().__init__()
 
         self.setWindowTitle("リアルタイム画像解析アプリ（明るさ判定）")
+        self.setFont(QFont("Meiryo", 12))
 
         # --- UI ---
         self.video_label = QLabel("カメラ映像")

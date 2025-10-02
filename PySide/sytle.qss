@@ -1,0 +1,111 @@
+/* 共通の基本スタイル（フォントやボタンの共通見た目） */
+QWidget {
+    font-family: "Meiryo";
+    font-size: 12px;
+}
+
+/* デフォルトボタン（Primary） */
+QPushButton#primaryBtn {
+    font-family: 'Yu Gothic UI';
+    background-color: #007bff;
+    color: white;
+    border-radius: 6px;
+    padding: 8px 16px;
+}
+QPushButton#primaryBtn:hover {
+    background-color: #0056b3;
+}
+
+/* Success */
+QPushButton#successBtn {
+    font-family: 'Arial';
+    background-color: #28a745;
+    color: white;
+    border-radius: 6px;
+    padding: 8px 16px;
+}
+QPushButton#successBtn:hover {
+    background-color: #1e7e34;
+}
+
+/* Danger */
+QPushButton#dangerBtn {
+    font-family: 'Meiryo';
+    background-color: #dc3545;
+    color: white;
+    border-radius: 6px;
+    padding: 8px 16px;
+}
+QPushButton#dangerBtn:hover {
+    background-color: #a71d2a;
+}
+
+/* アウトラインボタン（ID: outlineBtn を利用） */
+QPushButton#outlineBtn {
+    font-family: 'Meiryo';
+    background-color: transparent;
+    color: #007bff;
+    border: 2px solid #007bff;
+    border-radius: 6px;
+    padding: 8px 16px;
+}
+QPushButton#outlineBtn:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+/* 大きいボタン */
+QPushButton#largeBtn {
+    font-family: 'Meiryo';
+    background-color: #6c757d;
+    color: white;
+    font-size: 18px;
+    border-radius: 6px;
+    padding: 12px 24px;
+}
+
+/* 小さいボタン */
+QPushButton#smallBtn {
+    font-family: 'Meiryo';
+    background-color: #6c757d;
+    color: white;
+    font-size: 12px;
+    border-radius: 6px;
+    padding: 4px 8px;
+}
+
+/* 固定幅ボタン（見た目） */
+QPushButton#fixedBtn {
+    font-family: 'Meiryo';
+    font-weight: bold;
+    background-color: #17a2b8;
+    color: white;
+    font-size: 16px;
+    border-radius: 6px;
+    padding: 10px;
+}
+
+/* 可変（フル幅）ボタン */
+QPushButton#fullBtn {
+    font-family: 'Meiryo';
+    font-weight: bold;
+    background-color: #17a2b8;
+    color: white;
+    font-size: 16px;
+    border-radius: 6px;
+    padding: 10px;
+}
+
+/* 無効化されたボタン */
+QPushButton:disabled, QPushButton#disabledBtn:disabled {
+    font-family: 'Meiryo';
+    background-color: #6c757d;
+    color: #d6d6d6;
+    border-radius: 6px;
+    padding: 8px 16px;
+}
+
+/* 共通ホバーの微調（必要なら上書き可） */
+QPushButton:hover {
+    /* デフォルトホバーは個別で定義しているため基本は空にしておく */
+}
