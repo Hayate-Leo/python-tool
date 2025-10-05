@@ -1,0 +1,34 @@
+/* --- ライトテーマ QSS --- */
+QWidget {
+    background-color: #ffffff;
+    color: #222222;
+    font-family: "Yu Gothic UI", "Segoe UI", sans-serif;
+    font-size: 14px;
+}
+
+/* Buttons */
+QPushButton {
+    background-color: #f3f4f6;
+    color: #222222;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    padding: 6px 12px;
+}
+QPushButton:hover { background-color: #e5e7eb; }
+QPushButton:pressed { background-color: #d1d5db; }
+
+/* Inputs */
+QLineEdit, QTextEdit {
+    background-color: #ffffff;
+    color: #222222;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    padding: 6px;
+}
+
+/* Labels (headings) */
+QLabel#title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #111827;
+}
