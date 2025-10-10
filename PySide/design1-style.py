@@ -73,7 +73,7 @@ class MyWindow(QWidget):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    with open(r"C:\Users\kamis\python-tool\PySide\sytle.qss", "r", encoding="utf-8") as f:
+    with open(r"C:\Users\kamis\python-tool\PySide\style.qss", "r", encoding="utf-8") as f:
         app.setStyleSheet(f.read())
     window = MyWindow()
     window.show()
